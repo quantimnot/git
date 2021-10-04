@@ -1,0 +1,13 @@
+[package]
+name = "vcs_git"
+version = "0.1.0"
+
+[dependencies.git2]
+version = "0.8"
+optional = true
+
+[features]
+default = [
+    "impl_crates_io_git2",
+]
+impl_crates_io_git2 = [ "git2" ]

@@ -1,0 +1,72 @@
+# Title: Summary, imperative, start upper case, don't end with a period
+# No more than 50 chars. #### 50 chars is here:  #
+
+# Remember blank line between title and body.
+
+# Body: Explain *what* and *why* (not *how*). Include task ID (Jira issue).
+# Wrap at 72 chars. ################################## which is here:  #
+
+# Co-author Attribution
+#   At the end: Include Co-authored-by for all contributors. 
+#   Include at least one empty line before it. Format: 
+#   Co-authored-by: name <user@users.noreply.github.com>
+#
+# Change Type Labels
+#   - feat: a new feature
+#   - fix: a bug fix
+#   - docs: changes to documentation
+#   - style: formatting, missing semi colons, etc; no code change
+#   - refactor: refactoring production code
+#   - test: adding tests, refactoring test; no production code change
+#   - chore: updating build tasks, package manager configs
+#   - wip: work in progress commit to be squashed -- do not push!
+#
+# Skip CI
+#   Add [skip ci] or [ci skip] to the message to skip CI.
+#
+# GitHub
+#   Fixes #1           - link repo issue
+#   Fixes owner/repo#1 - link different repo issue
+#   Fixes #1, Fixes#2  - link multiple issues
+#
+#   https://docs.github.com/en/github/writing-on-github
+#
+# Example
+#   Summarize changes in around 50 characters or less
+#
+#   More detailed explanatory text, if necessary. Wrap it to about 72
+#   characters or so. In some contexts, the first line is treated as the
+#   subject of the commit and the rest of the text as the body. The
+#   blank line separating the summary from the body is critical (unless
+#   you omit the body entirely); various tools like `log`, `shortlog`
+#   and `rebase` can get confused if you run the two together.
+#
+#   Explain the problem that this commit is solving. Focus on why you
+#   are making this change as opposed to how (the code explains that).
+#   Are there side effects or other unintuitive consequences of this
+#   change? Here's the place to explain them.
+#
+#   Further paragraphs come after blank lines.
+#
+#    - Bullet points are okay, too
+#
+#    - Typically a hyphen or asterisk is used for the bullet, preceded
+#      by a single space, with blank lines in between, but conventions
+#      vary here
+#
+#   If you use an issue tracker, put references to them at the bottom,
+#   like this:
+#
+#   Resolves #123
+#   See also #456, #789
+#
+# See Also
+#   https://chris.beams.io/posts/git-commit/
+#   https://gist.github.com/lisawolderiksen/a7b99d94c92c6671181611be1641c733
+#
+# Install
+#   git config --global commit.template <path-to-this-file>
+#
+# Hooks
+#   commit-msg, prepare-commit-msg, pre-commit, and post-commit
+#   https://git-scm.com/docs/githooks
