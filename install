@@ -1,11 +1,11 @@
 #!/bin/sh -Cu
 
-ln -s "${PWD}/etc/git/"* "${XDG_CONFIG_HOME}/git"
+ln -sf "${PWD}/etc/git/"* "${XDG_CONFIG_HOME}/git"
 
 for ext in bin/git-*
 do
 	if [ -x "${ext}" ]
-	then ln -s "${PWD}/${ext}" "${WRKDIR}/bin"
+	then ln -sf "${PWD}/${ext}" "${WRKDIR}/bin"
 	fi
 done
 
