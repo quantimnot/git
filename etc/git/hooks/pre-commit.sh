@@ -8,7 +8,7 @@
 STASH_NAME="pre-commit-$(date +%s)"
 ROOT_DIR="$(git rev-parse --show-toplevel)"
 BUILD_DIR="${ROOT_DIR}/target"
-BRANCH_NAME=$(git branch | rg '*' | sd '* ' '')
+BRANCH_NAME=$(git branch --format '%(refname:lstrip=2)')
 RED='\033[1;31m'
 GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
@@ -16,7 +16,7 @@ NC='\033[0m'
 BOLD='\033[1m'
 
 # Check if commit is on a rebase, if not proceed as usual
-if [ $BRANCH_NAME != '(no branch)' ]
+if [ ! $BRANCH_NAME = '(no branch)' ]
 then
     stash=0
     # Check to make sure commit isn't emtpy, exit with status 0 to let git handle it
@@ -37,8 +37,8 @@ then
 
     # use && to combine test commands so if any one fails it's accurately represented
     # in the exit code
-    pkg check &&
-    pkg test
+    echo pkg check &&
+    echo pkg test
 
     # Capture exit code from tests
     status=$?
@@ -66,3 +66,4 @@ else
     echo "${YELLOW}Skipping tests on branchless commit${NC}"
     exit 0
 fi
+

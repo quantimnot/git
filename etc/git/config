@@ -1,0 +1,27 @@
+[user]
+	name = quantimnot
+	email = quantimnot@users.noreply.github.com
+[hub]
+	protocol = ssh
+[alias]
+	st = status
+	find = "!git log --color -p -S "
+	co = checkout
+	lb = for-each-ref --format=' %(authorname) %09 %(refname)' --sort=authorname
+	delete-merged = for-each-ref --format='%(if)%(authorname)%(then)%(authorname)%(end): %(refname)' --sort=authorname
+	first = rev-list --max-parents=0 HEAD
+[pull]
+	ff = only
+[core]
+	excludesFile = /Volumes/origin/ws/_sw/etc/git/excludes
+	attributesFile = /Volumes/origin/ws/_sw/etc/git/attributes
+	hooksPath = /Volumes/origin/ws/_sw/etc/git/hooks
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[color]
+	ui = auto
+[commit]
+	template = /Volumes/origin/ws/_sw/etc/git/message
