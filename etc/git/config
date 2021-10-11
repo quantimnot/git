@@ -25,3 +25,5 @@
 	ui = auto
 [commit]
 	template = /Volumes/origin/ws/_sw/etc/git/message
+[init]
+  templateDir = ""
