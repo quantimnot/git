@@ -1,4 +1,0 @@
-#!/bin/sh -Cue
-
-git config --global core.hooksPath "${XDG_CONFIG_DIR}/git/hooks"
-git config --global alias.ctags '!.git/hooks/ctags'

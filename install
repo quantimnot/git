@@ -1,0 +1,7 @@
+#!/bin/sh -Cue
+
+git config --global commit.template "${XDG_CONFIG_DIR}/git/message"
+git config --global core.attributesFile "${XDG_CONFIG_DIR}/git/attributes"
+git config --global core.excludesPath "${XDG_CONFIG_DIR}/git/excludes"
+git config --global core.hooksPath "${XDG_CONFIG_DIR}/git/hooks"
+git config --global init.templateDir
