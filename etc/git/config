@@ -4,12 +4,15 @@
 [hub]
 	protocol = ssh
 [alias]
+	lol = log --graph --pretty=format:'%C(auto)%h%d%Creset %C(cyan)(%cr)%Creset %C(green)%cn%Creset %s'
 	st = status
 	find = "!git log --color -p -S "
 	co = checkout
 	lb = for-each-ref --format=' %(authorname) %09 %(refname)' --sort=authorname
 	delete-merged = for-each-ref --format='%(if)%(authorname)%(then)%(authorname)%(end): %(refname)' --sort=authorname
 	first = rev-list --max-parents=0 HEAD
+[push]
+	default = current
 [pull]
 	ff = only
 [core]
