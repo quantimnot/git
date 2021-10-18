@@ -1,7 +1,7 @@
 build:
 	tup
 
-test-pre-commit:
+check:
 	shellcheck *.sh etc/git/hooks/*.sh bin/*.sh
 
 format:
@@ -12,3 +12,5 @@ install: install.sh
 
 uninstall: uninstall.sh
 	sh uninstall.sh
+
+pre-commit: format check

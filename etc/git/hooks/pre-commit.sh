@@ -4,6 +4,7 @@
 EXIT_CODE=0
 
 # Git Metadata
+ROOT_DIR="$(git rev-parse --show-toplevel)"
 BRANCH_NAME=$(git branch --format '%(refname:lstrip=2)')
 STASH_NAME="pre-commit-$(date +%s) on ${BRANCH_NAME}"
 
@@ -14,15 +15,11 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 BOLD='\033[1m'
 
-run_pre_commit_tests() {
-	if [ -f sw.yml ]; then
-		sw test -q pre-commit
-	elif [ -f makefile ] || [ -f Makefile ]; then
-		make test-pre-commit >/dev/null 2>&1
-	elif [ -f "$(basename "${PWD}").nimble" ]; then
-		nimble test_pre_commit >/dev/null 2>&1
-	elif [ -f config.nims ]; then
-		nim r test_pre_commit >/dev/null 2>&1
+run_pre_commit_tasks() {
+	if [ -f "${ROOT_DIR}/sw.yml" ]; then
+		sw task -q pre-commit
+	elif [ -f "${ROOT_DIR}/makefile" ] || [ -f "${ROOT_DIR}/Makefile" ]; then
+		(cd "${ROOT_DIR}" && make pre-commit)
 	else
 		# shellcheck disable=SC2059
 		printf "${YELLOW}NONE DEFINED "
@@ -56,8 +53,8 @@ if [ ! "${BRANCH_NAME}" = '(no branch)' ]; then
 	fi
 
 	# shellcheck disable=SC2059
-	printf "* ${BOLD}Pre-commit checks: "
-	if run_pre_commit_tests; then
+	printf "* ${BOLD}Run pre-commit tasks: "
+	if run_pre_commit_tasks; then
 		echo "${GREEN}PASS${NC}"
 	else
 		echo "${RED}FAIL${NC}"
