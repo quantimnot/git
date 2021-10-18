@@ -1,1 +1,3 @@
-!shexec = |> head -n1 '%f' >'%o' && shfmt -mn '%f' >>'%o' && chmod u+x,ugo-w '%o' |>
+.gitignore
+
+!shexec = |> cp -a "%f" "%o" && chmod u+x,ugo-w '%o' |>
