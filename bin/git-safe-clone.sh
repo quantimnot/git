@@ -1,6 +1,6 @@
 #!/bin/sh
 # Origin: https://gist.github.com/tribut/50c0f7d0b8341fa6d1784c317d5275f0
-# 
+#
 # Clone a git repository, but make sure that it has a valid signature
 # before actually checking it out.
 #
@@ -9,8 +9,8 @@
 set -e
 
 fail() {
-  echo "$*" >&2
-  exit 1
+	echo "$*" >&2
+	exit 1
 }
 
 giturl="$1"
@@ -23,14 +23,13 @@ gitgpgopts="-c gpg.program=selfgpg"
 [ -e "$target" ] && fail "$target already exists"
 
 git ls-remote --exit-code "$giturl" "$ref" >/dev/null ||
-  fail "$giturl does not exists or has no $ref branch"
+	fail "$giturl does not exists or has no $ref branch"
 git init -- "$target"
 cd -- "$target"
 git remote add origin -- "$giturl"
 git fetch -q --progress origin
 # This should probably not be needed?! merge just ignores --verify-signatures...
-git $gitgpgopts verify-commit "origin/$ref" ||
-  fail "origin/$ref does not have a valid signature"
-git $gitgpgopts merge --ff-only --verify-signatures "origin/$ref"
+git "${gitgpgopts}" verify-commit "origin/$ref" ||
+	fail "origin/$ref does not have a valid signature"
+git "${gitgpgopts}" merge --ff-only --verify-signatures "origin/$ref"
 git branch -q --set-upstream-to="origin/$ref"
-

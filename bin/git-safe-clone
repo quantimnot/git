@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+fail() {
+echo  "$*" >&2
+exit  1
+}
+giturl="$1"
+target="$2"
+ref="master"
+gitgpgopts="-c gpg.program=selfgpg"
+[ "$#" -ne 2 ]&&  fail "call me like this: $(basename "$0") git-url target-dir"
+[ -e "$target" ]&&  fail "$target already exists"
+git ls-remote --exit-code "$giturl" "$ref" >/dev/null||fail "$giturl does not exists or has no $ref branch"
+git init -- "$target"
+cd -- "$target"
+git remote add origin -- "$giturl"
+git fetch -q --progress origin
+git "$gitgpgopts"   verify-commit "origin/$ref"||fail "origin/$ref does not have a valid signature"
+git "$gitgpgopts"   merge --ff-only --verify-signatures "origin/$ref"
+git branch -q --set-upstream-to="origin/$ref"

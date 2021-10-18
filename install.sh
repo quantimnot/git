@@ -2,10 +2,9 @@
 
 ln -sf "${PWD}/etc/git/"* "${XDG_CONFIG_HOME}/git"
 
-for ext in bin/git-*
-do
-	if [ -x "${ext}" ]
-	then ln -sf "${PWD}/${ext}" "${WRKDIR}/bin"
+for ext in bin/git-*; do
+	if [ -x "${ext}" ]; then
+		ln   -sf "${PWD}/${ext}" "${WRKDIR}/bin"
 	fi
 done
 

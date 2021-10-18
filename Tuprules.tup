@@ -1,1 +1,1 @@
-include global_rules.tup
+!shexec = |> head -n1 '%f' >'%o' && shfmt -mn '%f' >>'%o' && chmod u+x,ugo-w '%o' |>
