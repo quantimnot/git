@@ -19,7 +19,7 @@ run_pre_commit_tasks() {
 	if [ -f "${ROOT_DIR}/sw.yml" ]; then
 		sw task -q pre-commit
 	elif [ -f "${ROOT_DIR}/makefile" ] || [ -f "${ROOT_DIR}/Makefile" ]; then
-		(cd "${ROOT_DIR}" && make pre-commit)
+		(cd "${ROOT_DIR}" && make pre-commit >/dev/null 2>&1)
 	else
 		# shellcheck disable=SC2059
 		printf "${YELLOW}NONE DEFINED "
