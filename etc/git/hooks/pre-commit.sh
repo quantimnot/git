@@ -50,6 +50,8 @@ if [ ! "${BRANCH_NAME}" = '(no branch)' ]; then
 				echo "${RED}FAILED TO CREATE STASH${NC}"
 				exit 1
 			fi
+		else
+			echo "${GREEN}DONE${NC}"
 		fi
 	fi
 
