@@ -18,7 +18,7 @@ BOLD='\033[1m'
 run_pre_commit_tasks() {
 	if [ -f "${ROOT_DIR}/sw.yml" ]; then
 		sw task -q pre-commit
-	elif [ -f "${ROOT_DIR}/makefile" ] || [ -f "${ROOT_DIR}/Makefile" ]; then
+	elif grep -q pre-commit "*akefile"; then
 		(cd "${ROOT_DIR}" && make pre-commit >/dev/null 2>&1)
 	else
 		# shellcheck disable=SC2059
