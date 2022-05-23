@@ -1,5 +1,7 @@
 #!/bin/sh
 
 case "$1" in
-	rebase) exec .git/hooks/post-merge ;;
+	rebase)
+		[ -f .git/hooks/post-merge ] &&
+		exec .git/hooks/post-merge ;;
 esac
