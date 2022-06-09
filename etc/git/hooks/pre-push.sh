@@ -16,14 +16,15 @@
 #
 #   <local ref> <local oid> <remote ref> <remote oid>
 #
-# This sample shows how to prevent push of commits where the log message starts
-# with "WIP|wip" (work in progress).
+# There are currently 2 checks:
+# - regex defined by config 'check.notinmessage' matches commit message
+# - regex defined by config 'check.notindiff' matches commit diff additions
 
 # shellcheck disable=SC2034
 remote="$1"
 url="$2"
 
-zero=$(git hash-object --stdin </dev/null | tr '0-9a-f' '0')
+zero="0000000000000000000000000000000000000000"
 
 # shellcheck disable=SC2034
 while read -r local_ref local_oid remote_ref remote_oid; do
@@ -32,18 +33,31 @@ while read -r local_ref local_oid remote_ref remote_oid; do
 		:
 	else
 		if test "$remote_oid" = "$zero"; then
-			# New branch, examine all commits
-			range="$local_oid"
+			# New branch, examine all commits from fork point
+			fork_point="$(git merge-base --fork-point "$local_ref")"
+			range="$fork_point^..$local_oid"
 		else
 			# Update to existing branch, examine new commits
 			range="$remote_oid..$local_oid"
 		fi
 
-		# Check for WIP commit
-		commit=$(git rev-list -n 1 -i --grep '^WIP' "$range")
-		if test -n "$commit"; then
-			echo >&2 "Found WIP commit in $local_ref, not pushing"
-			exit 1
+		# Check for excluded commit message patterns
+		excl=$(git config --get check.notinmessage)
+		if [ -n "$excl" ]; then
+			commit=$(git rev-list -1 -i --grep "$excl" "$range")
+			if test -n "$commit"; then
+				echo >&2 "Found '$excl' in commit message of $local_ref, not pushing"
+				exit 1
+			fi
+		fi
+
+		# Check for excluded patterns in diff
+		excl=$(git config --get check.notindiff)
+		if [ -n "$excl" ]; then
+			if git diff -U0 "$range" | sed -n '/^+++ b/d;/^+/p' | grep -E "$excl"; then
+				echo >&2 "Found '$excl' in diff of $local_ref, not pushing"
+				exit 1
+			fi
 		fi
 	fi
 done
