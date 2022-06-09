@@ -14,3 +14,6 @@ uninstall: uninstall.sh
 	sh uninstall.sh
 
 pre-commit: format check
+
+clean:
+	git clean -fx
