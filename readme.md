@@ -15,8 +15,19 @@ https://stackoverflow.com/questions/16244969/how-to-tell-git-to-ignore-individua
 
 [convert to shallow](https://stackoverflow.com/questions/4698759/converting-git-repository-to-shallow)
 
+[vcs history editor](http://www.catb.org/esr/reposurgeon/)
 
-## FAQ
+## Tips
 
 Create branch without history:
-  `git checkout --orphan`
+`git checkout --orphan`
+
+Reuse commit message after reset:
+`git commit -C @@{1}`
+or
+`git commit -C HEAD@{1}`
+or
+`git commit --reuse-message=HEAD@{1}`
+or
+`git commit --reuse-message=ORIG_HEAD`
+See https://stackoverflow.com/questions/16858069/git-how-to-reuse-retain-commit-messages-after-git-reset
